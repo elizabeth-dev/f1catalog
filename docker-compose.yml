@@ -1,0 +1,12 @@
+version: '3'
+services:
+  trainings-http:
+    build:
+      context: docker/api
+    volumes:
+      - ./api:/api
+    working_dir: /api
+    ports:
+      - '127.0.0.1:3001:3000'
+    env_file:
+      - .env

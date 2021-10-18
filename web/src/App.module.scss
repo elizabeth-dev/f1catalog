@@ -1,0 +1,9 @@
+.App {
+	display: flex;
+	flex-direction: column;
+	padding: 8px;
+	.item {
+		padding: 8px;
+		cursor: pointer;
+	}
+}

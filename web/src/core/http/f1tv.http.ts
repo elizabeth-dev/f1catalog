@@ -6,7 +6,7 @@ const CORS_PROXY_URL =
 const PLAYLIST_URL =
 	'https://us-central1-f1tv-325811.cloudfunctions.net/GetPlaylistURL';
 
-export const getPlaylistURL = (
+export const getPlaybackURL = (
 	contentId: string,
 	channelId?: string
 ): Promise<{ url: string }> =>
@@ -14,11 +14,6 @@ export const getPlaylistURL = (
 		`${PLAYLIST_URL}?contentId=${contentId}${
 			channelId ? `&channelId=${channelId}` : ''
 		}`
-	).then((res) => res.json());
-
-export const getRussiaRace = (): Promise<IContentRes> =>
-	fetch(
-		`${CORS_PROXY_URL}?uri=/2.0/R/ENG/BIG_SCREEN_HLS/ALL/CONTENT/VIDEO/1000003972/F1_TV_Pro_Annual/2`
 	).then((res) => res.json());
 
 export const getEvent = (contentId: string): Promise<IContentRes> =>

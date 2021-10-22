@@ -1,6 +1,20 @@
 import { AppEntry } from '../types/app.types';
 import { IContentRes } from '../types/f1tv.types';
+
 const DEFAULT_COLOR = '#ffffff';
+
+const generateTitle = (
+	title: string,
+	teamName?: string,
+	driverFirstName?: string,
+	driverLastName?: string
+): string =>
+	`${teamName ? `${teamName} - ` : ''}${
+		driverFirstName && driverLastName
+			? `${driverFirstName} ${driverLastName}`
+			: title
+	}`;
+
 export const mapContentToApp = ({ resultObj }: IContentRes): AppEntry[] => [
 	{
 		hex: DEFAULT_COLOR,
@@ -17,10 +31,7 @@ export const mapContentToApp = ({ resultObj }: IContentRes): AppEntry[] => [
 			teamName,
 		}) => ({
 			hex: hex ?? DEFAULT_COLOR,
-			title:
-				driverFirstName && driverLastName
-					? `${driverFirstName} ${driverLastName}`
-					: title,
+			title: generateTitle(title, teamName, driverFirstName, driverLastName),
 			contentId: [...playbackUrl.matchAll(/contentId=(\d+)/gi)][0][1],
 			channelId: [...playbackUrl.matchAll(/channelId=(\d+)/gi)][0][1],
 			teamName,

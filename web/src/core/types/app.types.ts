@@ -1,7 +1,6 @@
 export interface AppEntry {
-	hex: string;
 	title: string;
+	hex: string;
 	contentId: string;
 	channelId?: string;
-	teamName?: string;
 }

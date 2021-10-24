@@ -27,7 +27,7 @@ func NewF1TVClient() F1TVClient {
 	return F1TVClient{HttpClient: http.DefaultClient}
 }
 
-func Authenticate() (*string, *uint, error) {
+func Authenticate() (*string, *int64, error) {
 	type request struct {
 		Login    string `json:"Login"`
 		Password string `json:"Password"`
@@ -73,7 +73,7 @@ func Authenticate() (*string, *uint, error) {
 	jwtStr, err := base64.RawStdEncoding.DecodeString(strings.Split(auth.Data.SubscriptionToken, ".")[1])
 
 	var jwt struct {
-		Exp uint `json:"exp"`
+		Exp int64 `json:"exp"`
 	}
 
 	json.Unmarshal([]byte(jwtStr), &jwt)

@@ -1,10 +1,10 @@
 export interface IContentRes {
 	resultObj: {
-		containers: IContainer[];
+		containers: IContentContainer[];
 	};
 }
 
-export interface IContainer {
+export interface IContentContainer {
 	metadata: { title: string; additionalStreams: IAdditionalStream[] };
 	contentId: number;
 }
@@ -16,4 +16,14 @@ export interface IAdditionalStream {
 	teamName?: string;
 	playbackUrl: string;
 	title: string | 'DATA' | 'PIT LANE' | 'TRACKER';
+}
+
+export interface IHomeRes {
+	resultObj: { containers: { retrieveItems: { resultObj: { containers: IHomeContainer[] } } }[] };
+}
+
+export interface IHomeContainer {
+	id: string;
+
+	metadata: { contentSubtype: string; title: string };
 }

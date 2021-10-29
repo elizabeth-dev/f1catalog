@@ -14,7 +14,17 @@ export const PlaylistView: FC = () => {
 	useEffect(() => {
 		getEvent(eventId)
 			.then((res) => mapContentToApp(res))
-			.then((content) => setEntries(content.sort((a, b) => b.hex.localeCompare(a.hex))));
+			.then((content) =>
+				setEntries(
+					content.sort((a, b) => {
+						if (!a.driver && !b.driver) return 0;
+						if (!a.driver) return -1;
+						if (!b.driver) return 1;
+
+						return a.hex.localeCompare(b.hex);
+					})
+				)
+			);
 	}, [eventId]);
 
 	const onLoadStream = (contentId: string, channelId?: string) =>

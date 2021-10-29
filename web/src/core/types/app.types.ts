@@ -3,4 +3,10 @@ export interface AppEntry {
 	hex: string;
 	contentId: string;
 	channelId?: string;
+	driver: boolean;
+}
+
+export interface AppEvent {
+	title: string;
+	eventId: string;
 }

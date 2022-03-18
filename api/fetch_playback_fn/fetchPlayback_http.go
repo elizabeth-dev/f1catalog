@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-	"strings"
 	"time"
 
 	firebase "firebase.google.com/go/v4"
@@ -71,20 +70,7 @@ func FetchPlayback(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	/* Retrieving CDN URL */
-	var playbackUrl string
-	for i := 0; i < 15; i++ {
-		log.Printf("trying to get an Akamai URL, attempt %v...\n", i)
-		playbackUrl, err = adapter.GetPlaylistURL(contentId, channelId, *subToken)
-
-		if err != nil || strings.Contains(strings.ToLower(playbackUrl), "akamaized.net") {
-			if err == nil {
-				log.Printf("found an Akamai URL at attempt no. %v!\n", i)
-			}
-
-			break
-		}
-	}
+	playbackUrl, err := adapter.GetPlaylistURL(contentId, channelId, *subToken)
 
 	if err != nil {
 		log.Printf("error getting playlist url: %v\n", err)
@@ -101,8 +87,13 @@ func FetchPlayback(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	host := parsedUrl.Host
+	parsedUrl.Host = "relay.f1tv.elizabeth.sh:8080"
+	parsedUrl.Scheme = "http"
+
 	query := parsedUrl.Query()
 	query.Del("start")
+	query.Set("host", host)
 	parsedUrl.RawQuery = query.Encode()
 
 	/* Sending HTTP 307 to CDN URL*/

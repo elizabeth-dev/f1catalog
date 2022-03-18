@@ -34,7 +34,7 @@ func Authenticate() (*string, *int64, error) {
 	}
 
 	payloadBuf := new(bytes.Buffer)
-	err := json.NewEncoder(payloadBuf).Encode(request{Login: "elizabethmc1999+f1tvfrance@gmail.com", Password: "Lr9XRS56kuSugAZ"})
+	err := json.NewEncoder(payloadBuf).Encode(request{Login: "elizabethmc1999fr@gmail.com", Password: "Lr9XRS56kuSugAZ!"})
 	if err != nil {
 		return nil, nil, err
 	}
